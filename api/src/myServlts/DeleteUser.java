@@ -41,7 +41,7 @@ public class DeleteUser extends HttpServlet {
 		// TODO Auto-generated method stub	
 		User user=new User();
 		String id=request.getParameter("id");
-		System.out.println(id);
+		
 		try {
 			user.deleteUser(id);
 			

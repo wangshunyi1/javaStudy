@@ -89,22 +89,53 @@ public class User {
 			
 		
 		
-			
-		
-	
-		
-		
-		
-		
-	
-	
-	
-		
-		
-		
-		
-	
 		}
+	
+	
+	
+	public void updateUser(String id,String userName,String  age,String  gender, String adress, String tel) throws SQLException {
+		
+		Connection Conn = DBConn.getConn();
+		
+		Statement stmt = Conn.createStatement();
+		//String s = null;
+	//	String sSql = "update userList set "+s+"where id = "+id;
+		//判断userName用户名是否更新
+		if(userName!=null) {
+			String sSql = "update userList set userName = '"+userName+"' where id = "+id+"";
+			System.out.println(sSql);
+			stmt. execute(sSql);
+			
+		}
+		//判断age是否更新
+		if(age!=null) {
+			String sSql = "update userList set age = '"+age+"' where id = "+id+"";
+			System.out.println(sSql);
+			stmt. execute(sSql);
+		}	
+		//判断gender是否更新
+		if(gender!=null) {
+			String sSql = "update userList set gender = '"+gender+"' where id = "+id+"";
+			System.out.println(sSql);
+			stmt. execute(sSql);
+		
+		}	
+		//判断adress是否更新
+		if(adress!=null) {
+			String sSql = "update userList set adress = '"+adress+"' where id = "+id+"";
+			System.out.println(sSql);
+			stmt. execute(sSql);
+			
+		}
+		//判断tel是否更新
+		if(tel!=null) {
+			String sSql = "update userList set tel = '"+tel+"' where id = "+id+"";
+			System.out.println(sSql);
+			stmt. execute(sSql);
+			
+		}
+		
+	}
 		
 	
 	

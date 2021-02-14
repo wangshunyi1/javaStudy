@@ -2,7 +2,9 @@ package myServlts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wsy.User;
 
-import jdk.incubator.jpackage.internal.IOUtils;
-import jdk.internal.org.jline.utils.InputStreamReader;
 import net.sf.json.JSONObject;
 
 /**
@@ -22,49 +22,54 @@ import net.sf.json.JSONObject;
 @WebServlet("/addUser")
 public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AddUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		User user=new User();
-		// BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
-		 //String body = IOUtils.read(reader);
-		response.setHeader("Content-Type","text/html;charset=UTF-8");
-		String userName=request.getParameter("userName");
-		String age=request.getParameter("age");
-		String gender=request.getParameter("gender");
-		String adress=request.getParameter("adress");
-		String tel=request.getParameter("tel");
-		long time=System.currentTimeMillis();
+		
+
+		User user = new User();
+
+		response.setHeader("Content-Type", "text/html;charset=UTF-8");
+		String userName = request.getParameter("userName");
+		String age = request.getParameter("age");
+		String gender = request.getParameter("gender");
+		String adress = request.getParameter("adress");
+		String tel = request.getParameter("tel");
+		long time = System.currentTimeMillis();
 		System.out.println(userName);
 		
-	
+
 		try {
-			user.addUser(userName,age,gender,adress,tel,time);
+			user.addUser(userName, age, gender, adress, tel, time);
 			JSONObject res = new JSONObject();
 			res.put("status", 200);
 			res.put("success", true);
 			res.put("desc", "添加成功");
 			response.getWriter().append(res.toString());
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JSONObject res = new JSONObject();
@@ -73,8 +78,9 @@ public class AddUser extends HttpServlet {
 			res.put("desc", "添加失败");
 			response.getWriter().append(res.toString());
 			e.printStackTrace();
+
 		}
-		
+
 	}
 
 }
