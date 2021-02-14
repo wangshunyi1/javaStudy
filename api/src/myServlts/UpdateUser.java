@@ -40,6 +40,8 @@ public class UpdateUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		User user = new User();
+		//String str = new String(names.getBytes("ISO-8859-1"),"utf-8");
+		request.setCharacterEncoding("utf-8");
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
 		String id=request.getParameter("id");
 		String userName = request.getParameter("userName");
@@ -48,6 +50,7 @@ public class UpdateUser extends HttpServlet {
 		String adress = request.getParameter("adress");
 		String tel = request.getParameter("tel");
 		System.out.println(userName);
+		
 		
 		
 		try {
