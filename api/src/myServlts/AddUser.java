@@ -1,7 +1,7 @@
 package myServlts;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wsy.User;
 
+import jdk.incubator.jpackage.internal.IOUtils;
+import jdk.internal.org.jline.utils.InputStreamReader;
 import net.sf.json.JSONObject;
 
 /**
@@ -43,7 +45,8 @@ public class AddUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		User user=new User();
-		
+		// BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+		 //String body = IOUtils.read(reader);
 		response.setHeader("Content-Type","text/html;charset=UTF-8");
 		String userName=request.getParameter("userName");
 		String age=request.getParameter("age");
@@ -51,6 +54,7 @@ public class AddUser extends HttpServlet {
 		String adress=request.getParameter("adress");
 		String tel=request.getParameter("tel");
 		long time=System.currentTimeMillis();
+		System.out.println(userName);
 		
 	
 		try {
