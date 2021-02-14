@@ -1,0 +1,13 @@
+#閺佺増宓佹惔鎾惰閸拷:1娑撶瘲YSQL,姒涙顓绘稉锟�1閵嗭拷
+DBType=1
+
+#MySQL 閺佺増宓佹惔鎾圭箾閹恒儰淇婇幁锟�
+#MySQL 閺佺増宓佹惔鎾烩攳閸斻劎鈻兼惔锟�
+MySQLDriver=com.mysql.cj.jdbc.Driver
+
+# MySQL閺佺増宓佹惔鎾圭箾閹恒儱鐡х粭锔胯閵嗭拷
+# 127.0.0.1:3306 娑撶儤鏆熼幑顔肩氨閸︽澘娼冮崪宀�顏崣锟�
+# webDB 娑撶儤鏆熼幑顔肩氨閸氬稄绱漸ser 娑撹櫣娅ヨぐ鏇犳暏閹村嘲鎮曢敍瀹瞐ssword 娑撹櫣娅ヨぐ鏇炵槕閻降锟藉倽顕懛顏囶攽閺囧瓨鏁奸妴锟�
+MySQLURL=jdbc:mysql://123.56.119.87/study?user=root&password=199336&useUnicode=true&characterEncoding=UTF-8
+
+#閹劏绻曢崣顖欎簰缂佈呯敾濞ｈ濮為崗璺虹暊閻ㄥ嫭鏆熼幑顔肩氨閵嗭拷
