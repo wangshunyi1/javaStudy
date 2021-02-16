@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.wsy.User;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Signin
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Signin")
+public class Signin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Signin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		
 		User user = new User();
 		request.setCharacterEncoding("utf-8");
 	
@@ -47,12 +47,10 @@ public class Login extends HttpServlet {
 		
 		String iden = request.getParameter("iden");
 		String password = request.getParameter("password");
-		
-		System.out.println(iden+password);
 		if(iden!=null&&password!=null) {
 		try {
-			String s=user.login(iden, password);
-			response.getWriter().append(s);
+			String str=user.signin(iden,password);
+			response.getWriter().append(str);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,12 +61,8 @@ public class Login extends HttpServlet {
 			
 		}
 		
-	
-	}
-		
-		
 		
 		
 	}
 
-
+}

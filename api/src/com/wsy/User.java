@@ -61,7 +61,7 @@ public class User {
 			Conn.close(); // 鍏抽棴鏁版嵁杩炴帴
 			return res.toString(); // 杩斿洖瀛楃涓叉暟鎹�
 		} catch (Exception e) { // 寰楀埌绯荤粺杩愯寮傚父
-			
+
 			return "No"; // 濡傛灉绯荤粺寮傚父鏂规硶杩斿洖瀛楃鈥淣o鈥�
 		}
 	}
@@ -135,62 +135,104 @@ public class User {
 
 	}
 
-	public void login(String iden, String password) throws SQLException {
+	public String signin(String iden, String password) throws SQLException {
 		Connection Conn = DBConn.getConn();
 
 		Statement stmt = Conn.createStatement();
 		String sSql = "select iden from login ";
 		ResultSet rs = stmt.executeQuery(sSql);
 		JSONObject res = new JSONObject();
-		boolean b=true;
-		while(rs.next()) {
-			
-			if(rs.getString("iden").equals(iden)) {
-			
-			/*	res.put("status", 200);
-				res.put("desc", "请求成功！");
-				res.put("data", null);
-				res.put("success", "账户已存在");
-				*/
-				b=false;
+		boolean b = true;
+		while (rs.next()) {
+
+			if (rs.getString("iden").equals(iden)) {
+
+				/*
+				 * res.put("status", 200); res.put("desc", "请求成功！"); res.put("data", null);
+				 * res.put("success", "账户已存在");
+				 */
+				b = false;
 				break;
-				
+
 			}
-			
-	}
+
+		}
 		System.out.println(b);
+
+		if (b) {
+			String sSql1 = "INSERT INTO login (iden, password) values ('" + iden + "','" + password + "')";
+
+			stmt.executeUpdate(sSql1);
+			res.put("status", 200);
+			res.put("desc", "请求成功！");
+			res.put("iden", iden);
+			res.put("password", password);
+			res.put("success", "账户添加成功");
+
+		} else {
+			res.put("status", 200);
+			res.put("desc", "请求成功！");
+			res.put("data", null);
+			res.put("success", "账户已存在");
+			System.out.println("账户存在");
+		}
+
+		rs.close();
+		stmt.close();
+		Conn.close();
+		return res.toString();
+
+	}
+
+	public String login(String iden, String password) throws SQLException {
+
+		Connection Conn = DBConn.getConn();
+		JSONObject res = new JSONObject();
+		Statement stmt = Conn.createStatement();
+		String sSql = "select * from login ";
+		ResultSet rs = stmt.executeQuery(sSql);
+		boolean b = true;
+		while (rs.next()) {
+
+			if (rs.getString("iden").equals(iden)) {
+
+				b = false;
+
+				if (rs.getString("password").equals(password)) {
+					res.put("status", 200);
+					res.put("desc", "请求成功！");
+					res.put("iden",iden);
+					res.put("password",password);
+					res.put("success", "登录成功");
+
+					System.out.println("登录成功");
+
+				} else {
+					
+					res.put("status", 200);
+					res.put("desc", "请求成功！");
+					res.put("data",null);
+					
+					res.put("success", "密码错误");
+					System.out.println("密码错误");
+
+				}
+
+			}
+
+		}
 		
 		if(b) {
-			String sSql1 = "INSERT INTO login (iden, password) values ('" + iden + "','"
-					+ password + "')";
-		
-			System.out.println(sSql1);
-			System.out.println("添加成功");
-				stmt.executeUpdate(sSql1);
+			res.put("status", 200);
+			res.put("desc", "请求成功！");
+			res.put("data",null);
 			
-		}else {
-			
-			System.out.println("账户存在");
+			res.put("success", "账号不存在");
+			System.out.println("账号不存在");
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		rs.close();
-		stmt.close();
-		Conn.close(); 
-	
-
+		return res.toString();
 	}
 
 }
