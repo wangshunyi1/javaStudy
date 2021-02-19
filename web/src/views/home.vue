@@ -1,12 +1,12 @@
 <template>
     <div id="app" class="home">
         <h1>通过前端去做上传进度条和下载进度条</h1>
-        <h2>上传功能：(<span class="red">说明：以下两个上传使用的nodejs模块不同，一个fs原生，一个是第三方fs-extra</span>)</h2>
+        <h2>上传功能：(<span class="red">说明：采用java的servlet</span>)</h2>
         <input type="file" ref="upload" @change="handleUpload">
         <el-progress :text-inside="true" :stroke-width="24" :percentage="per" status="success"></el-progress>
         <input type="file" ref="upload1" @change="handleUpload1">
         <el-progress :text-inside="true" :stroke-width="24" :percentage="per1" status="exception"></el-progress>
-        <h2>下载功能：(<span class="red">说明：列表的获取需要的是glob模块来遍历文件</span>)</h2>
+        <h2>下载功能：(<span class="red">说明：使用java技术</span>)</h2>
         <el-button type="primary" style="width: 188px;" @click="getList">刷新列表</el-button> 
         <table>
             <thead>

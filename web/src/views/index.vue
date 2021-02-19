@@ -168,7 +168,7 @@ export default {
             })
         },
         delData(id){
-            this.$axios.post('/api/del', qs.stringify({
+            this.$axios.post('/api/DeleteUser', qs.stringify({
                 id: id
             })).then(res => {
                 if (res.data.status == 200) {
@@ -191,7 +191,7 @@ export default {
 
         },
         saveData(item){
-            this.$axios.post('/api/edit', qs.stringify({
+            this.$axios.post('/api/UpdateUser', qs.stringify({
                 userName: item.userName,
                 age: item.age,
                 adress: item.adress,

@@ -16,12 +16,12 @@
       <el-menu-item index="2">
         home
       </el-menu-item>
-      <el-menu-item index="3">
+      <!-- <el-menu-item index="3">
         markdown
-      </el-menu-item>
-      <el-menu-item index="4">
-        lover
-      </el-menu-item>
+      </el-menu-item> -->
+      <!-- <el-menu-item index="4">
+        imgList
+      </el-menu-item> -->
       <el-button type="danger" @click="logOut" class="logoutText">  退出登录</el-button>
     </el-menu>
     </div>

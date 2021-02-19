@@ -47,8 +47,8 @@ export default {
                 });
                 return false;
             }else{
-                this.$axios.post('/api/login', qs.stringify({
-                    userName: this.userName,
+                this.$axios.post('/api/Login', qs.stringify({
+                    iden: this.userName,
                     password: this.passWord
                 })).then(res => {
                     if (res.data.status == 200) {
