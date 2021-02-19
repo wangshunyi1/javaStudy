@@ -174,7 +174,7 @@ public class User {
 			res.put("desc", "请求成功！");
 			res.put("data", null);
 			res.put("success", "账户已存在");
-			System.out.println("账户存在");
+			
 		}
 
 		rs.close();

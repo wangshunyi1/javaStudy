@@ -65,8 +65,7 @@ public class UpdateUser extends HttpServlet {
 			e.printStackTrace();
 		};
 	
-		doGet(request, response);
-	
+		
 
 }
 	}
