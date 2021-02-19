@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.wsy.User;
 
@@ -43,6 +44,10 @@ public class UpdateUser extends HttpServlet {
 		//String str = new String(names.getBytes("ISO-8859-1"),"utf-8");
 		request.setCharacterEncoding("utf-8");
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
+		
+		HttpSession session = request.getSession(false);
+		
+		if(session!=null) {
 		String id=request.getParameter("id");
 		String userName = request.getParameter("userName");
 		String age = request.getParameter("age");
@@ -65,3 +70,5 @@ public class UpdateUser extends HttpServlet {
 
 }
 	}
+	
+}

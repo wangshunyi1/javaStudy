@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.wsy.User;
 
@@ -48,11 +49,13 @@ public class Login extends HttpServlet {
 		String iden = request.getParameter("iden");
 		String password = request.getParameter("password");
 		
-		System.out.println(iden+password);
+		
 		if(iden!=null&&password!=null) {
 		try {
 			String s=user.login(iden, password);
 			response.getWriter().append(s);
+			HttpSession session = request.getSession();
+			//session.setMaxInactiveInterval(60*60);	//设置生效时间，单位秒
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

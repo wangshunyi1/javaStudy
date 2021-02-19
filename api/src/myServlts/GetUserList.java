@@ -31,6 +31,9 @@ public class GetUserList extends HttpServlet {
 		
 	
 		User user = new User();
+		request.setCharacterEncoding("utf-8");
+		
+	
 		String res = user.getUserList();
 		response.setHeader("Content-Type","text/html;charset=UTF-8");
 		// TODO Auto-generated method stub
