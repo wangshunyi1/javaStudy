@@ -51,15 +51,15 @@ public class Login extends HttpServlet {
 		
 		
 		if(iden!=null&&password!=null) {
-		try {
-			String s=user.login(iden, password);
-			response.getWriter().append(s);
-			HttpSession session = request.getSession();
-			//session.setMaxInactiveInterval(60*60);	//设置生效时间，单位秒
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				String s=user.login(iden, password, request);
+				response.getWriter().append(s);
+				
+				//session.setMaxInactiveInterval(60*60);	//设置生效时间，单位秒
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			
 			response.getWriter().append("账号密码不能为空");

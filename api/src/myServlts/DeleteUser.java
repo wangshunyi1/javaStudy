@@ -1,5 +1,5 @@
 package myServlts;
-
+import com.wsy.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.wsy.User;
+
+import net.sf.json.JSONObject;
 
 /**
  * Servlet implementation class DeleteUser
@@ -27,13 +29,7 @@ public class DeleteUser extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,20 +41,23 @@ public class DeleteUser extends HttpServlet {
 		
 		response.setHeader("Content-Type", "text/html;charset=UTF-8");
 		String id=request.getParameter("id");
-		HttpSession session = request.getSession(false);
+		Function func = new Function();
+		boolean bool = func.CheckLogin(request);
+		if(bool) {
 		
-		if(session!=null) {
-		
-		try {
-			user.deleteUser(id);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
+			try {
+				JSONObject obj = user.deleteUser(id);
+				response.getWriter().append(obj.toString());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
 		
 		
+		}else {
+			JSONObject obj = func.ReturnObj(bool);
+			response.getWriter().append(obj.toString());
 		}
 	}
 

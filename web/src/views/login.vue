@@ -65,8 +65,8 @@ export default {
             }
         },
         isLogin(){
-            this.$axios.post('/api/isLogin').then(res => {
-                if (res.data.status == 200) {
+            this.$axios.get('/api/IsLogin').then(res => {
+                if (res.data.status == 200 && res.data.success) {
                     this.$router.replace({
                         path: '/'
                     })
@@ -75,7 +75,7 @@ export default {
         }
     },
     mounted(){
-        //this.isLogin();
+        this.isLogin();
     }
 }
 </script>

@@ -35,12 +35,12 @@ axios.interceptors.response.use(function (response) {
   store.commit('changeLoading', {
     flag: false
   });
-  // // 请求如果报未登录，统一跳转路由
-  // if (response.data.status === 403) {
-  //   router.replace({
-  //     path: '/login'
-  //   }).catch(err => err)
-  // }
+  // 请求如果报未登录，统一跳转路由
+  if (response.data.status === 401) {
+    router.replace({
+      path: '/login'
+    }).catch(err => err)
+  }
   return response;
 }, function (error) {
   // router.replace({

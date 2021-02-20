@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import net.sf.json.JSONObject;
 
 public class User {
@@ -79,18 +82,32 @@ public class User {
 
 	}
 
-	public void deleteUser(String id) throws SQLException {
+	public JSONObject deleteUser(String id) throws SQLException {
 
 		Connection Conn = DBConn.getConn();
 
 		Statement stmt = Conn.createStatement();
 
-		String sSql = "delete from userList where id = '" + id + "'";
-		stmt.execute(sSql);
+		String sSql = "delete from userList where id =" + id;
+		JSONObject res = new JSONObject();
+		try {
+			stmt.execute(sSql);
+			res.put("status", 200);
+			res.put("success", true);
+			res.put("desc", "删除成功！");
+			
+		}catch(Exception ex){
+			res.put("status", 400);
+			res.put("success", false);
+			res.put("desc", "删除失败！");
+		}
+		stmt.close(); // 鍏抽棴鏌ヨ
+		Conn.close(); // 鍏抽棴鏁版嵁杩炴帴
+		return res;
 
 	}
 
-	public void updateUser(String id, String userName, String age, String gender, String adress, String tel)
+	public JSONObject updateUser(String id, String userName, String age, String gender, String adress, String tel)
 			throws SQLException {
 
 		Connection Conn = DBConn.getConn();
@@ -99,39 +116,25 @@ public class User {
 		// String s = null;
 		// String sSql = "update userList set "+s+"where id = "+id;
 		// 判断userName用户名是否更新
-		if (userName != null) {
-			String sSql = "update userList set userName = '" + userName + "' where id = " + id + "";
-			System.out.println(sSql);
+		
+		String sSql = "update userList set userName = '" + userName + "',gender='" +gender + "',age="+age+ ",adress='"+adress+"',tel='"+ tel+ "' where id = " + id ;
+		System.out.println(sSql);
+		JSONObject res = new JSONObject();
+		try {
 			stmt.execute(sSql);
+			res.put("status", 200);
+			res.put("desc", "更新成功！");
+			res.put("success", true);
+		}catch(Exception ex) {
+			res.put("status", 200);
+			res.put("desc", "更新失败！");
+			res.put("success", false);
+		}
+		stmt.close(); // 鍏抽棴鏌ヨ
+		Conn.close(); // 鍏抽棴鏁版嵁杩炴帴	
+		return res;
+		
 
-		}
-		// 判断age是否更新
-		if (age != null) {
-			String sSql = "update userList set age = '" + age + "' where id = " + id + "";
-			System.out.println(sSql);
-			stmt.execute(sSql);
-		}
-		// 判断gender是否更新
-		if (gender != null) {
-			String sSql = "update userList set gender = '" + gender + "' where id = " + id + "";
-			System.out.println(sSql);
-			stmt.execute(sSql);
-
-		}
-		// 判断adress是否更新
-		if (adress != null) {
-			String sSql = "update userList set adress = '" + adress + "' where id = " + id + "";
-			System.out.println(sSql);
-			stmt.execute(sSql);
-
-		}
-		// 判断tel是否更新
-		if (tel != null) {
-			String sSql = "update userList set tel = '" + tel + "' where id = " + id + "";
-			System.out.println(sSql);
-			stmt.execute(sSql);
-
-		}
 
 	}
 
@@ -184,52 +187,31 @@ public class User {
 
 	}
 
-	public String login(String iden, String password) throws SQLException {
+	public String login(String iden, String password, HttpServletRequest request) throws SQLException {
 
 		Connection Conn = DBConn.getConn();
 		JSONObject res = new JSONObject();
 		Statement stmt = Conn.createStatement();
-		String sSql = "select * from login ";
+		String sSql = "select * from login where iden='" + iden + "' and password=" + password;
 		ResultSet rs = stmt.executeQuery(sSql);
-		boolean b = true;
-		while (rs.next()) {
-
-			if (rs.getString("iden").equals(iden)) {
-
-				b = false;
-
-				if (rs.getString("password").equals(password)) {
-					res.put("status", 200);
-					res.put("desc", "请求成功！");
-					res.put("iden",iden);
-					res.put("password",password);
-					res.put("success", "登录成功");
-
-					System.out.println("登录成功");
-
-				} else {
-					
-					res.put("status", 200);
-					res.put("desc", "请求成功！");
-					res.put("data",null);
-					
-					res.put("success", "密码错误");
-					System.out.println("密码错误");
-
-				}
-
-			}
-
-		}
-		
-		if(b) {
+		if (rs.next()) {
 			res.put("status", 200);
 			res.put("desc", "请求成功！");
-			res.put("data",null);
+			res.put("iden",iden);
+			res.put("password",password);
+			res.put("success", true);
 			
-			res.put("success", "账号不存在");
-			System.out.println("账号不存在");
+			HttpSession session = request.getSession();
+			int userId = rs.getInt("userId");
+			System.out.print(userId);
+			session.setAttribute("personId", userId);
+		}else {
+			res.put("status", 400);
+			res.put("desc", "账号或密码错误！");
+			res.put("data",null);
+			res.put("success", false);
 		}
+
 		
 		
 		return res.toString();

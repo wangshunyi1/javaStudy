@@ -94,7 +94,7 @@ export default {
       }
     },
     logOut(){
-      this.$axios.get('/api/logout').then(res => {
+      this.$axios.get('/api/LoginOut').then(res => {
           if (res.data.status === 200) {
             this.$message({
               message: '退出登陆成功！',
